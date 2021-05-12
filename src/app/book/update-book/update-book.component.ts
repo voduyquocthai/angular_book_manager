@@ -18,15 +18,15 @@ export class UpdateBookComponent implements OnInit {
 
   updateBook: Book = {}
 
-  index = -1;
+  bookId: number;
 
   constructor(private bookService: BookService,
               private authorService: AuthorService,
               private activatedRoute: ActivatedRoute) {
     this.activatedRoute.paramMap.subscribe(
       paramMap => {
-        this.index = + paramMap.get('id') + 1;
-        bookService.getBookById(this.index).subscribe(
+        this.bookId = + paramMap.get('id');
+        bookService.getBookById(this.bookId).subscribe(
           (response: Book) => {
             this.updateBook = response;
           },
