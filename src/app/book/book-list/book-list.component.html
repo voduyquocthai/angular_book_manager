@@ -13,11 +13,11 @@
     <tbody>
     <tr *ngFor="let book of books;">
       <th scope="row">{{book.id}}</th>
-      <td>{{book.name}}</td>
+      <td><a [routerLink]="['detail', book.id]" class="book-name">{{book.name}}</a></td>
       <td>{{book.author?.name}}</td>
       <td>{{book.description}}</td>
       <td><a [routerLink]="['update', book.id]" type="button" class="btn btn-primary">Edit</a></td>
-      <td><a (click)="onOpenDeleteModal(book)" type="button" class="btn btn-danger">Delete</a>
+      <td><a style="color: white" (click)="onOpenDeleteModal(book)" type="button" class="btn btn-danger">Delete</a>
       </td>
     </tr>
     </tbody>
@@ -43,7 +43,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to delete employee {{deleteBook?.name}}</p>
+        <p>Are you sure you want to delete book: {{deleteBook?.name}}</p>
         <div class="modal-footer">
           <button routerLink="/books" type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
           <button (click) = "onDeleteBook(deleteBook?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>

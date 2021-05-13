@@ -54,7 +54,8 @@ export class UpdateBookComponent implements OnInit {
   }
 
   onUpdateBook(editForm: NgForm): void{
-
+    console.log(editForm.value.authorId);
+    console.log(typeof editForm.value.authorId);
     let book: Book = {
       id: editForm.value.id,
       name: editForm.value.name,

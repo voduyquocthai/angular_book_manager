@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Book} from '../../model/book';
 import {BookService} from '../../service/book.service';
 import {HttpErrorResponse} from '@angular/common/http';
