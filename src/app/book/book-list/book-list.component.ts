@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Book} from '../../model/book';
 import {BookService} from '../../service/book.service';
 import {HttpErrorResponse} from '@angular/common/http';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-book-list',
@@ -13,7 +14,8 @@ export class BookListComponent implements OnInit {
   books: Book[];
   deleteBook: Book = {};
 
-  constructor(private bookService: BookService) {
+  constructor(private bookService: BookService,
+              private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -47,10 +49,12 @@ export class BookListComponent implements OnInit {
   onDeleteBook(bookId: number): void {
     this.bookService.deleteBook(bookId).subscribe(
       (response: void) => {
+        this.toastr.success("Delete Book Successful !")
         this.getBooks();
       },
       (error: HttpErrorResponse) => {
         console.log(error.message)
+        this.toastr.error("Failed ! Please Try Again")
       }
     )
   }

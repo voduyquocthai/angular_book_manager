@@ -6,6 +6,7 @@ import {Author} from '../../model/author';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-update-book',
@@ -22,7 +23,8 @@ export class UpdateBookComponent implements OnInit {
 
   constructor(private bookService: BookService,
               private authorService: AuthorService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private toastr: ToastrService) {
     this.activatedRoute.paramMap.subscribe(
       paramMap => {
         this.bookId = + paramMap.get('id');
@@ -66,10 +68,12 @@ export class UpdateBookComponent implements OnInit {
     }
     this.bookService.updateBook(book).subscribe(
       (response: Book) => {
-        console.log(response)
+        console.log(response);
+        this.toastr.success("Update Book Successful !")
       },
       (error: HttpErrorResponse) => {
-        console.log(error.message)
+        console.log(error.message);
+        this.toastr.error("Failed ! Please Try Again")
       }
     )
   }

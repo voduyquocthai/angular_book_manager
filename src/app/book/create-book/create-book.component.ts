@@ -5,6 +5,7 @@ import {Book} from '../../model/book';
 import {HttpErrorResponse} from '@angular/common/http';
 import {AuthorService} from '../../service/author.service';
 import {BookService} from '../../service/book.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-create-book',
@@ -15,7 +16,9 @@ export class CreateBookComponent implements OnInit {
 
   authors: Author[]
 
-  constructor(private authorService: AuthorService, private bookService: BookService) { }
+  constructor(private authorService: AuthorService,
+              private bookService: BookService,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getAuthors();
@@ -33,10 +36,12 @@ export class CreateBookComponent implements OnInit {
       this.bookService.addBook(book).subscribe(
         (response : Book) => {
           console.log(response);
+          this.toastr.success("Create Book Successful !")
           addForm.reset();
         },
         (error: HttpErrorResponse) => {
           console.log(error.message)
+          this.toastr.error("Failed ! Please Try Again")
         }
       )
   }
